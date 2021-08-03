@@ -19,7 +19,7 @@
        
    - name: Third Task
      ios_command:
-         commands: show running-config
+         commands: show ip sla statistics 250 details
      register: version
    - name: Fourth Task
      debug:
