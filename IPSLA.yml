@@ -1,0 +1,17 @@
+---
+- name: create ip sla
+  hosts: 27.27.27.22
+  gather_facts: False
+  connection: local
+  tasks:
+   - name: First Task
+     ios_config:
+         lines:
+         - icmp-echo 203.199.244.66 source-ip 203.199.244.18
+         - frequency 5
+         - ip sla schedule 150 life forever start-time now
+         parents: ip sla 150
+     register: version
+   - name: Second Task
+     debug:
+       var: version
