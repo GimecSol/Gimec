@@ -1,0 +1,27 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: calculate
+    network_os: ios
+
+- name: match num-packets
+  pattern_match:
+    regex: "(\\d+)"
+  register: num-packets
+
+
+- name: match Number Of RTT
+  pattern_match:
+    regex: "Number of RTT is (\\d+)"
+  register: Number Of RTT
+
+
+- name: export system facts to playbook
+  set_vars:
+    num-packets: "{{ num-packets.matches.0 }}"
+    Number Of RTT: "{{ Number Of RTT.matches.0 }}"
+
+  export: yes
+  export_as: dict
+  register: ping_facts
