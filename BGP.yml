@@ -23,8 +23,8 @@
      debug:
        var: version
        
-- name: BGP in C1111
-  hosts: 27.27.27.209
+- name: BGP in 1006X
+  hosts: 100.64.0.28
   gather_facts: False
   connection: local
   tasks:
