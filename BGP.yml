@@ -1,0 +1,47 @@
+---
+- name: BGP in C1111
+  hosts: 27.27.27.209
+  gather_facts: False
+  connection: local
+  tasks:
+   - name: First Task
+     ios_config:
+         lines:
+         - address-family ipv4 vrf VRF_BGP_OVER_IPSEC
+         - neighbor 172.20.2.54 remote-as 4755
+         - neighbor 172.20.2.54 ebgp-multihop 3
+         - neighbor 172.20.2.54 update-source Loopback550
+         - neighbor 172.20.2.54 timers 10 30
+         - neighbor 172.20.2.54 activate
+         - neighbor 172.20.2.54 soft-reconfiguration inbound
+         - neighbor 172.20.2.54 route-map LP_1111_1006X in
+         - neighbor 172.20.2.54 route-map ASPREP_1111_1006X out
+
+         parents: router bgp 64949
+     register: version
+   - name: Second Task
+     debug:
+       var: version
+       
+- name: BGP in C1111
+  hosts: 27.27.27.209
+  gather_facts: False
+  connection: local
+  tasks:
+   - name: First Task
+     ios_config:
+         lines:
+         - address-family ipv4 vrf BGP_1006X
+         - neighbor 172.20.2.45 remote-as 64949
+         - neighbor 172.20.2.45 ebgp-multihop 3
+         - neighbor 172.20.2.45 update-source Loopback550
+         - neighbor 172.20.2.45 timers 10 30
+         - neighbor 172.20.2.45 activate
+         - neighbor 172.20.2.45 soft-reconfiguration inbound
+         - neighbor 172.20.2.54 route-map LP_1111_1006X in
+         - neighbor 172.20.2.54 route-map ASPREP_1111_1006X out
+         parents: router bgp 4755
+     register: version
+   - name: Second Task
+     debug:
+       var: version
