@@ -15,7 +15,6 @@
          - neighbor 172.20.2.54 soft-reconfiguration inbound
          - neighbor 172.20.2.54 route-map LP_1111_1006X in
          - neighbor 172.20.2.54 route-map ASPREP_1111_1006X out
-         parents: address-family ipv4 vrf VRF_BGP_OVER_IPSEC
          parents: router bgp 64949
      register: version
    - name: Second Task
@@ -38,7 +37,6 @@
          - neighbor 172.20.2.45 soft-reconfiguration inbound
          - neighbor 172.20.2.54 route-map LP_1111_1006X in
          - neighbor 172.20.2.54 route-map ASPREP_1111_1006X out
-         parents: address-family ipv4 vrf BGP_1006X
          parents: router bgp 4755
      register: version
    - name: Second Task
